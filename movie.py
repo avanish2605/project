@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import pandas as pd
+import lzma
 
 def recommend(movie):
     movie_index = movies[movies['title']==movie].index[0]
@@ -19,7 +20,7 @@ def recommend(movie):
 movie_dict=pickle.load(open('movie_dict.pkl','rb'))
 movies = pd.DataFrame(movie_dict)
 
-similarity = pickle.load(open('similarity.pkl','rb'))
+similarity = pickle.load(lzma.open('similarity.pkl.xz','rb'))
 
 options = ['select a movie among those in dropdown menu ⬇⬇ tap the selectbox to see the options '] + list(movies['title'].values)
 st.title('Movie recommender system')
